@@ -17,6 +17,11 @@ export default defineConfig({
     postcss: {
       plugins: [tailwindcss],
     },
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler" // or 'modern'
+      }
+    }
   },
   optimizeDeps: {
     include: ["react", "react-dom", "react-router-dom", "antd"],

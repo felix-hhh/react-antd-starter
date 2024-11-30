@@ -1,15 +1,19 @@
 import { App as AntdApp } from "antd";
-import router from "./router";
-import './App.css'
-import { RouterProvider } from "react-router-dom";
+import routerItem from "@/router";
+import "@/App.scss";
+import AntdConfig from "@/theme/antd";
+import { useRoutes } from "react-router-dom";
 
 function App() {
+  const routes = useRoutes(routerItem);
 
   return (
-    <AntdApp>
-      <RouterProvider router={router} />
-    </AntdApp>
-  )
+    <AntdConfig>
+      <AntdApp>
+        {routes}
+      </AntdApp>
+    </AntdConfig>
+  );
 }
 
-export default App
+export default App;

@@ -1,6 +1,6 @@
 import MainContent from "@/components/MainContent.tsx";
 import MainTable from "@/components/MainTable.tsx";
-import { MainTableColumn } from "@/components";
+import { MainTableColumn, MainTableDataSource } from "@/components";
 import { useEffect, useState } from "react";
 import useAxios from "@/api";
 import useUtils from "@/utils";
@@ -8,7 +8,7 @@ import useUtils from "@/utils";
 
 
 const AdminInfoPage = () => {
-  const [datasource, setDatasource] = useState<[]>([]);
+  const [datasource, setDatasource] = useState<MainTableDataSource>();
   const { sendPost } = useAxios();
   const { createSearchModel,datetimeFormat } = useUtils();
   const [query] = useState("react");
@@ -80,7 +80,7 @@ const AdminInfoPage = () => {
   const getData = () => {
     sendPost(`${baseUrl}/page`, createSearchModel(null, 20, 1))
       .then((res) => {
-        setDatasource(res.records);
+        setDatasource(res);
       });
   };
 
@@ -95,7 +95,7 @@ const AdminInfoPage = () => {
 
   return (
     <MainContent>
-      <MainTable dataSource={datasource} columns={columns} />
+      <MainTable dataSourcePage={datasource} columns={columns} />
     </MainContent>
   );
 

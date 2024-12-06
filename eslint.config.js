@@ -25,6 +25,7 @@ export default tseslint.config(
       ],
       //no-unsafe-function-type
       "@typescript-eslint/no-unsafe-function-type": "off",
+      "@typescript-eslint/no-explicit-any": "off"
     },
   },
 );

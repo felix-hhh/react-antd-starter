@@ -1,4 +1,4 @@
-import { Button, Form, Input, Table, Tooltip } from "antd";
+import { Button, Form, Input, Space, Table, Tooltip } from "antd";
 import {
   SearchOutlined,
   PrinterOutlined,
@@ -44,11 +44,17 @@ const MainTable = (props: MainTableProps) => {
 
       <div className={"main-table-opt"}>
         <div className={"main-table-opt-button"}>
+          <Space>
           {
             props.options?.map((item, index) => (
-              <Button type={item.type ? item.type : "primary"} key={index}>{item.label}</Button>
+              <Button variant="solid"
+                      color={item.color || "primary"} key={index}
+                      onClick={item.handle}>
+                {item.label}
+              </Button>
             ))
           }
+          </Space>
         </div>
         <div className={"main-table-opt-def text-gray-400"}>
           <Tooltip placement="top" title={"刷新"}>
@@ -67,13 +73,13 @@ const MainTable = (props: MainTableProps) => {
       </div>
       <div className={"main-table-content"}>
         <Table
-          dataSource={props.dataSource}
+          dataSource={props.hidePage ? props.dataSourceList : props.dataSourcePage?.records}
           // columns={props.columns}
           rowKey={"id"}
           scroll={{ x: "max-content" }}
           pagination={props.hidePage ? false : {
             defaultPageSize: 20,
-            total: props.dataSource.length,
+            total: props.dataSourcePage?.records.length,
           }}
         >
           {
@@ -103,7 +109,7 @@ const MainTable = (props: MainTableProps) => {
               } else {
                 return (
                   <Table.Column title={column.title} dataIndex={column.dataIndex} key={column.key} width={column.width}
-                                render={column.render} />
+                                render={column.render} fixed={column.fixed ? column.fixed : false} />
                 );
               }
             })

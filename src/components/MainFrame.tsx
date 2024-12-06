@@ -29,12 +29,12 @@ import { useUserToken } from "@/store/userStore.ts";
 const avatarItems: MenuProps["items"] = [
   {
     label: "个人资料",
-    key: "0",
+    key: "profile",
     icon: <SolutionOutlined />,
   },
   {
     label: "修改密码",
-    key: "1",
+    key: "changePwd",
     icon: <KeyOutlined />,
   },
   {
@@ -42,10 +42,11 @@ const avatarItems: MenuProps["items"] = [
   },
   {
     label: "退出",
-    key: "2",
+    key: "logout",
     icon: <LogoutOutlined />,
   },
 ];
+
 
 /**
  * 初始化菜单
@@ -104,9 +105,30 @@ const MainFrame = () => {
     console.log(location.pathname);
   }, [location.pathname]);
 
+  /**
+   * 菜单点击
+   * @param key
+   */
   const menuClick = ({ key }: { key: string }) => {
     console.log(key);
     navigate(key);
+  };
+
+  /**
+   * 头像菜单点击事件
+   * @param key
+   */
+  const avatarClickHandle = ({ key }: { key: string }) => {
+    switch (key) {
+      case "logout":
+        navigate("/");
+        break;
+      case "changePwd":
+        break;
+      case "profile":
+        break;
+    }
+    console.log(key);
   };
 
 
@@ -139,7 +161,7 @@ const MainFrame = () => {
                 <BellOutlined />
               </Badge>
             </Button>
-            <Dropdown menu={{ items: avatarItems }}>
+            <Dropdown menu={{ items: avatarItems, onClick: avatarClickHandle }}>
               <Button type={"text"}>
                 <Avatar
                   size={28}

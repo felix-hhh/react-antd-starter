@@ -610,7 +610,6 @@ const columns: MainTableColumn[] = [
 const options: MainTableOpts[] = [
   {
     label: "添加",
-    type: "primary",
   },
   {
     label: "删除",

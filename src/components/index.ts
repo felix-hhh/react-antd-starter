@@ -12,7 +12,7 @@ export interface MainTableProps {
   /**
    * 是否展示分页
    */
-  hidePage: boolean,
+  hidePage?: boolean,
   options?: MainTableOpts[];
 }
 

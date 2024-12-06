@@ -82,7 +82,7 @@ const SystemMenuPage = () => {
 
   return (
     <MainContent>
-      <MainTable dataSource={datasource} columns={columns} />
+      <MainTable dataSource={datasource} columns={columns} hidePage={true} />
     </MainContent>
   );
 

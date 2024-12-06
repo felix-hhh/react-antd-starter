@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import {
   Avatar,
   Dropdown,
@@ -18,9 +18,12 @@ import {
   LogoutOutlined,
   MessageOutlined,
   SolutionOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
-import routerItem from "@/router";
+import { routerItem } from "@/router";
 import { ItemType } from "antd/es/menu/interface";
+import { useUserToken } from "@/store/userStore.ts";
 
 // 头像菜单
 const avatarItems: MenuProps["items"] = [
@@ -44,39 +47,42 @@ const avatarItems: MenuProps["items"] = [
   },
 ];
 
+/**
+ * 初始化菜单
+ */
 const initSideMenu = (): MenuProps["items"] => {
   const sideMenu: MenuProps["items"] = [];
-  for (let i = 0; i < routerItem.length; i++) {
-    const item = routerItem[i];
-    console.log(item.name);
-    if (item.children != undefined) {
-      if (item.children.length === 1) {
+  routerItem.map(menu => {
+    const menuChildren = menu.children;
+    if (menuChildren !== undefined) {
+      if (menuChildren.length === 1) {
+        const itemMenu = menuChildren[0];
         sideMenu.push({
-          label: item.children[0].name,
-          key: i.toString(),
-          icon: item.children[0].icon,
+          label: itemMenu.name,
+          title: itemMenu.name,
+          key: itemMenu.path,
+          icon: itemMenu.icon,
         });
       } else {
-        let childrenIndex: number = 0;
-        const menuChildren: ItemType[] = [];
-        item.children.forEach(child => {
-          menuChildren.push({
-            label: child.name,
-            key: i + "-" + childrenIndex,
-            icon: child.icon,
+        const menuChildrenObj: ItemType[] = [];
+        menuChildren.map(childrenMenu => {
+          menuChildrenObj.push({
+            label: childrenMenu.name,
+            title: childrenMenu.name,
+            key: childrenMenu.path,
+            icon: childrenMenu.icon,
           });
-          childrenIndex++;
         });
-
         sideMenu.push({
-          label: item.name,
-          key: i,
+          label: menu.name,
+          key: menu.path,
           type: "group",
-          children: menuChildren,
+          children: menuChildrenObj,
         });
       }
     }
-  }
+  });
+
   return sideMenu;
 };
 
@@ -86,63 +92,82 @@ const MainFrame = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const sideMenu = initSideMenu();
+  const { userToken } = useUserToken();
+
+  const navigate = useNavigate();
+
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
 
   useEffect(() => {
-    console.log(111);
+    console.log(location.pathname);
   }, [location.pathname]);
+
+  const menuClick = ({ key }: { key: string }) => {
+    console.log(key);
+    navigate(key);
+  };
 
 
   return (
-    <Layout className={"h-dvh"}>
-      <Layout.Header className={"border-black border-b border-opacity-10 flex items-center justify-between"}>
-        <div className={"text-center w-48"}>
-          <Typography.Title className={"text-white"} level={3}>后台管理</Typography.Title>
+    <Layout className={"main-frame"}>
+      <Layout.Header
+        className={"main-frame-header border-black border-b border-opacity-10 flex items-center justify-between"}>
+        <div className={"main-frame-header-title"}>
+          Kelaker Manages
         </div>
-        <div className="flex items-center">
-          <Button type={"text"}>
-            <ExpandOutlined />
-          </Button>
-          <Divider type="vertical" />
-          <Button type={"text"}>
-            <Badge dot={show}>
-              <MessageOutlined />
-            </Badge>
-          </Button>
-          <Divider type="vertical" />
-          <Button type={"text"}>
-            <Badge dot={show}>
-              <BellOutlined />
-            </Badge>
-          </Button>
-          <Dropdown menu={{ items: avatarItems }}>
-            <Button type={"text"}>
-              <Avatar
-                size={28}
-                src={
-                  "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg"
-                }
-              />
-              <Typography.Text type={"secondary"}>七妮妮</Typography.Text>
+        <div className={"main-frame-header-options"}>
+          <div className={"flex items-center"}>
+            <Button type={"text"} onClick={toggleCollapsed}>
+              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             </Button>
-          </Dropdown>
+          </div>
+          <div className="flex items-center">
+            <Button type={"text"}>
+              <ExpandOutlined />
+            </Button>
+            <Divider type="vertical" />
+            <Button type={"text"}>
+              <Badge dot={show}>
+                <MessageOutlined />
+              </Badge>
+            </Button>
+            <Divider type="vertical" />
+            <Button type={"text"}>
+              <Badge dot={show}>
+                <BellOutlined />
+              </Badge>
+            </Button>
+            <Dropdown menu={{ items: avatarItems }}>
+              <Button type={"text"}>
+                <Avatar
+                  size={28}
+                  src={
+                    "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg"
+                  }
+                />
+                <Typography.Text type={"secondary"}>{userToken?.userData.nickname}</Typography.Text>
+              </Button>
+            </Dropdown>
+          </div>
         </div>
       </Layout.Header>
+
       <Layout>
         <Layout.Sider
-          width={192}
           breakpoint={"md"}
           collapsed={collapsed}
           onCollapse={value => setCollapsed(value)}
         >
-
           <Menu
             defaultSelectedKeys={["0"]}
-            defaultOpenKeys={["sub1"]}
+            defaultOpenKeys={["0"]}
             mode="inline"
             items={sideMenu}
+            onClick={menuClick}
           />
         </Layout.Sider>
-
         <Layout.Content className={"overflow-auto"}>
           <Outlet />
         </Layout.Content>

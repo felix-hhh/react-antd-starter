@@ -1,54 +1,69 @@
-import { BasicStatus, PermissionType } from './enum';
-
+/**
+ * 用户token
+ */
 export interface UserToken {
-  accessToken?: string;
-  refreshToken?: string;
+  /**
+   * 用户标签
+   */
+  userTag: string;
+
+  /**
+   * 创建时间
+   */
+  createDatetime: Date;
+  /**
+   * 超时时间
+   */
+  exp: Date;
+
+  /**
+   * 超时时间
+   */
+  expireSeconds: number;
+
+  /**
+   * token
+   */
+  token: string;
+  /**
+   * 角色
+   */
+  roles: string[];
+
+  /**
+   * 用户数据
+   */
+  userData: UserData;
+
 }
 
-export interface UserInfo {
-  id: string;
-  email: string;
+export interface UserData {
+  nickname: string;
   username: string;
-  password?: string;
-  avatar?: string;
-  role?: Role;
-  status?: BasicStatus;
-  permissions?: Permission[];
 }
 
-export interface Organization {
-  id: string;
-  name: string;
-  status: 'enable' | 'disable';
-  desc?: string;
-  order?: number;
-  children?: Organization[];
-}
-
-export interface Permission {
-  id: string;
-  parentId: string;
-  name: string;
-  label: string;
-  type: PermissionType;
-  route: string;
-  status?: BasicStatus;
-  order?: number;
-  icon?: string;
-  component?: string;
-  hide?: boolean;
-  hideTab?: boolean;
-  frameSrc?: string;
-  newFeature?: boolean;
-  children?: Permission[];
-}
-
-export interface Role {
-  id: string;
-  name: string;
-  label: string;
-  status: BasicStatus;
-  order?: number;
-  desc?: string;
-  permission?: Permission[];
+/**
+ * 查询对象
+ */
+export interface SearchModel {
+  /**
+   * 页大小
+   */
+  limit: number,
+  /**
+   * 当前页
+   */
+  page: number,
+  /**
+   * 检索数据
+   */
+  data: object,
+  /**
+   * 排序字段
+   */
+  sort?: string,
+  /**
+   * 排序方式
+   */
+  dir: "DESC" | "ASC",
 }

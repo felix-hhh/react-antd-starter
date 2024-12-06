@@ -26,20 +26,28 @@ const themeModeToken: Record<"dark" | "light", ThemeConfig> = {
       colorBgElevated: "#161c24",
     },
     components: {
+      Layout: {
+        headerBg: "#252532",
+        siderBg: "rgb(36, 37, 37)",
+      },
       Modal: {
         headerBg: "#212b36",
         contentBg: "#212b36",
         footerBg: "#212b36",
       },
       Notification: {},
+      Menu: {},
     },
   },
   light: {
-    components:{
+    token: {
+      colorPrimary: "#6C78AB",
+      colorTextBase:"#333"
+    },
+    components: {
       Layout: {
-        headerBg: customThemeTokenConfig.colorPrimary,
+        headerBg: "#FFF",
         siderBg: "#FFF",
-        headerColor: "#FFF",
         headerHeight: 50,
         headerPadding: 0,
       },
@@ -54,13 +62,14 @@ const themeModeToken: Record<"dark" | "light", ThemeConfig> = {
         itemMarginInline: 0,
         itemMarginBlock: 0,
         itemColor: "#78828a",
+        itemSelectedBg: "#FFF",
       },
-      Table:{
+      Table: {
         headerBorderRadius: 0,
-        headerBg:"#FFF",
-        headerColor: "#909399"
-      }
-    }
+        headerBg: "#FFF",
+        headerColor: "#909399",
+      },
+    },
   },
 };
 

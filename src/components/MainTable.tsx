@@ -1,4 +1,4 @@
-import { Button, Form, Input, Table } from "antd";
+import { Button, Form, Input, Table, Tooltip } from "antd";
 import {
   SearchOutlined,
   PrinterOutlined,
@@ -6,603 +6,21 @@ import {
   ExpandOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
+import { MainTableProps } from "@/components";
 
-const dataSource = [
-  {
-    id: 1,
-    name: "胡彦斌",
-    age: 32,
-    address: "西湖区湖底公园1号",
-  },
-  {
+/**
+ * 全屏
+ */
+const fullscreen = () => {
+  const baseGrids = document.getElementById("BaseGrids");
+  baseGrids?.requestFullscreen();
+};
 
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
 
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦斌",
-    age: 32,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦斌",
-    age: 32,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦斌",
-    age: 32,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦斌",
-    age: 32,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖111",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-  {
-
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-];
-
-const columns = [
-  {
-    title: "姓名",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "年龄",
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "住址",
-    dataIndex: "address",
-    key: "address",
-  },
-
-
-];
-
-const MainTable = () => {
+const MainTable = (props: MainTableProps) => {
   return (
-    <div className={"main-table bg-white m-2.5 "}>
-      <div className={"search-bar"}>
+    <div id="BaseGrids" className={"main-table"}>
+      <div className={"main-table-search"}>
         <Form
           name="basic"
           autoComplete="off"
@@ -617,33 +35,80 @@ const MainTable = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" icon={<SearchOutlined />} htmlType="submit">
+            <Button icon={<SearchOutlined />} htmlType="submit">
               搜索
             </Button>
           </Form.Item>
         </Form>
       </div>
-      <div className={"opt-bar flex"}>
-        <div className={"opt-button flex gap-2.5 flex-1"}>
-          <Button type="primary" htmlType="submit">添加</Button>
-          <Button type="primary" htmlType="submit">添加</Button>
+
+      <div className={"main-table-opt"}>
+        <div className={"main-table-opt-button"}>
+          {
+            props.options?.map((item, index) => (
+              <Button type={item.type ? item.type : "primary"} key={index}>{item.label}</Button>
+            ))
+          }
         </div>
-        <div className={"opt-def text-gray-400"}>
-          <Button type="text" icon={<ReloadOutlined />} htmlType="submit" />
-          <Button type="text" icon={<ExpandOutlined />} htmlType="submit" />
-          <Button type="text" icon={<SearchOutlined />} htmlType="submit" />
-          <Button type="text" icon={<DownloadOutlined />} htmlType="submit" />
-          <Button type="text" icon={<PrinterOutlined />} htmlType="submit" />
+        <div className={"main-table-opt-def text-gray-400"}>
+          <Tooltip placement="top" title={"刷新"}>
+            <Button type="text" icon={<ReloadOutlined />} htmlType="submit" />
+          </Tooltip>
+          <Tooltip placement="top" title={"全屏"}>
+            <Button onClick={fullscreen} type="text" icon={<ExpandOutlined />} htmlType="submit" />
+          </Tooltip>
+          <Tooltip placement="top" title={"下载"}>
+            <Button type="text" icon={<DownloadOutlined />} htmlType="submit" />
+          </Tooltip>
+          <Tooltip placement="top" title={"打印"}>
+            <Button type="text" icon={<PrinterOutlined />} htmlType="submit" />
+          </Tooltip>
         </div>
       </div>
-      <div className={"table-content"}>
-        <Table dataSource={dataSource} columns={columns}
-               rowKey={"id"}
-               pagination={{
-                 defaultPageSize: 20,
-                 total: dataSource.length,
-               }}
-        />
+      <div className={"main-table-content"}>
+        <Table
+          dataSource={props.dataSource}
+          // columns={props.columns}
+          rowKey={"id"}
+          scroll={{ x: "max-content" }}
+          pagination={props.hidePage ? false : {
+            defaultPageSize: 20,
+            total: props.dataSource.length,
+          }}
+        >
+          {
+            props.columns.map(column => {
+              if (column.type === "handle") {
+                return (
+                  <Table.Column
+                    title={column.title}
+                    width={column.width}
+                    fixed={column.fixed ? column.fixed : false}
+                    key="handle"
+                    render={() => (
+                      <>
+                        {
+                          column.handles?.map((handle, index) => (
+                            <Button color={handle.type ? handle.type : "primary"}
+                                    variant={"link"}
+                                    key={index}>
+                              {handle.title}
+                            </Button>
+                          ))
+                        }
+                      </>
+                    )}
+                  />
+                );
+              } else {
+                return (
+                  <Table.Column title={column.title} dataIndex={column.dataIndex} key={column.key} width={column.width}
+                                render={column.render} />
+                );
+              }
+            })
+          }
+        </Table>
       </div>
     </div>
   );

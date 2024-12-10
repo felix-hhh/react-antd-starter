@@ -76,13 +76,20 @@ const useAxios = () => {
     return instance.post(url, params).then((res) => res.data.data);
   };
 
+  const sendGet = (url: string, params?: object) => {
+    if (params == null) {
+      params = {};
+    }
+    return instance.get(url, params).then((res) => res.data.data);
+  };
+
 
   /*if (params == null) {
     params = {};
   }
   return instance.post(url, params).then((res) => res.data.data);*/
 
-  return { sendPost };
+  return { sendPost,sendGet };
 };
 
 

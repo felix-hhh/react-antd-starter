@@ -60,11 +60,9 @@ const LoginPage = () => {
   const loginHandler: FormProps<LoginFormData>["onFinish"] = (value) => {
     value.password = MD5(value.password).toString().toLowerCase();
     value.identity = identity;
-    console.log(value);
     sendPost("/system/manage/admin/info/login", value)
       .then(
         (res) => {
-          console.log(res);
           setUserToken(res);
           navigate("/index");
         },
@@ -76,7 +74,6 @@ const LoginPage = () => {
           verifyCode: "",
         });
       });
-    // axios.post("/system/manage/admin/info/login");
 
   };
 

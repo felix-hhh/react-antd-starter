@@ -67,3 +67,16 @@ export interface SearchModel {
    */
   dir: "DESC" | "ASC",
 }
+
+/**
+ * 系统菜单
+ */
+export interface SystemMenuModel {
+  id: number;
+  name: string;
+  type: string;
+  typeStr: string;
+  orderNum: number;
+  path: string;
+  children?: SystemMenuModel[];
+}

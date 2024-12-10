@@ -3,6 +3,7 @@ import { ColumnType } from "antd/es/table/interface";
 import { FixedType } from "rc-table/lib/interface";
 import { MouseEventHandler } from "react";
 import type { Rule } from "rc-field-form/lib/interface";
+import { RadioChangeEvent } from "antd";
 
 /**
  * MainTable props
@@ -116,7 +117,7 @@ export interface MainDrawerProps {
 export interface FormProps {
   label: string;
   prop: string;
-  type?: "input" | "switch" | "number" | "textarea" | "select";
+  type?: "input" | "switch" | "number" | "textarea" | "select"|"radio"|"cascader";
   placeholder?: string;
   /**
    * 初始化数据
@@ -127,14 +128,21 @@ export interface FormProps {
    */
   rules?: Rule[];
   /**
-   * 下拉框数据
+   * item数据
    */
-  selectData?: SelectData[];
+  itemData?: ItemData[];
+
+  /**
+   * 变更事件
+   * @param e
+   */
+  onChange?:(e:RadioChangeEvent) => void;
 }
 
-export interface SelectData {
+export interface ItemData {
   value: string | number;
   label: string;
+  children?:ItemData[]
 }
 
 /**

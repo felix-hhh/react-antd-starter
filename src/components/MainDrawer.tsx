@@ -1,4 +1,4 @@
-import { Button, Drawer, Form, Input, InputNumber, Select, Space, Switch } from "antd";
+import { Button, Cascader, Drawer, Form, Input, InputNumber, Radio, Select, Space, Switch } from "antd";
 import { MainDrawerProps } from "@/components/index.ts";
 
 const MainDrawer = (props: MainDrawerProps) => {
@@ -9,7 +9,7 @@ const MainDrawer = (props: MainDrawerProps) => {
    */
   const onSubmit = () => {
     if(props.content.handle) {
-      props.content.handle(form);
+      form.submit();
     }
   };
 
@@ -74,6 +74,26 @@ const MainDrawer = (props: MainDrawerProps) => {
                     />
                   </Form.Item>
                 );
+              case "radio":
+                return (
+                  <Form.Item
+                    label={item.label}
+                    name={item.prop}
+                    key={"item" + index}
+                    initialValue={item.initialValue}
+                    rules={item.rules}
+                  >
+                    <Radio.Group buttonStyle="solid" onChange={item.onChange}>
+                      {
+                        item.itemData?.map((itemData,index) =>(
+                          <Radio.Button value={itemData.value} key={index}>
+                            {itemData.label}
+                          </Radio.Button>
+                        ))
+                      }
+                    </Radio.Group>
+                  </Form.Item>
+                )
               case "select":
                 return (
                   <Form.Item
@@ -82,7 +102,18 @@ const MainDrawer = (props: MainDrawerProps) => {
                     key={"item" + index}
                     rules={item.rules}
                   >
-                    <Select options={item.selectData} />
+                    <Select options={item.itemData} />
+                  </Form.Item>
+                );
+              case "cascader":
+                return (
+                  <Form.Item
+                    label={item.label}
+                    name={item.prop}
+                    key={"item" + index}
+                    rules={item.rules}
+                  >
+                    <Cascader options={item.itemData} placeholder={item.placeholder || `请输入${item.label}`} />
                   </Form.Item>
                 );
               default:
